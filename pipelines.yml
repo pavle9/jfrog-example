@@ -31,14 +31,14 @@ pipelines:
                 --bus amqps://amq.app.neuralegion.com:5672 \
                 --name "💎 Broken Crystals"               \
                 --crawler https://brokencrystals.com       \                                  
-                --token kg9veu3.nexa.lwc50w6zl0u6ifimiwljhf1df4hjhtwu)      \
+                --token $int_NEXPLOIT_NEXPLOIT_TOKEN)      \
             - printf "Scan was started with ID https://nexploit.app/scans/$SCAN_ID\n"
             - printf "Wait for issues ⏳\n"
             - |
               nexploit-cli scan:polling               \
                 --interval 30s                        \
                 --timeout 20m                         \
-                --token kg9veu3.nexa.lwc50w6zl0u6ifimiwljhf1df4hjhtwu  \
+                --token $int_NEXPLOIT_NEXPLOIT_TOKEN  \
                 --breakpoint high_issue $SCAN_ID
           onComplete:
-            - nexploit-cli scan:stop --token kg9veu3.nexa.lwc50w6zl0u6ifimiwljhf1df4hjhtwu $SCAN_ID
+            - nexploit-cli scan:stop --token $int_NEXPLOIT_NEXPLOIT_TOKEN $SCAN_ID
