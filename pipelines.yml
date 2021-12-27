@@ -29,14 +29,13 @@ pipelines:
               SCAN_ID=$(nexploit-cli scan:run                                                \
                 --name "💎 Broken Crystals" \
                 --crawler https://brokencrystals.com                                         \
-                --token $int_Nexploit_NEXPLOIT_TOKEN
-                --smart)
+                --token $int_Nexploit_NEXPLOIT_TOKEN)
             - printf "Scan was started with ID https://nexploit.app/scans/$SCAN_ID\n"
             - printf "Wait for issues ⏳\n"
             - |
               nexploit-cli scan:polling               \
                 --interval 30s                        \
-                --timeout 12m                         \
+                --timeout 20m                         \
                 --token $int_Nexploit_NEXPLOIT_TOKEN  \
                 --breakpoint high_issue $SCAN_ID
           onComplete:
