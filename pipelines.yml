@@ -27,18 +27,18 @@ pipelines:
             - sudo npm install -g @neuralegion/nexploit-cli --unsafe-perm=true
             - |
               SCAN_ID=$(nexploit-cli scan:run \
+                --token $int_Nexploit_NEXPLOIT_TOKEN      \
                 --api https://app.neuralegion.com         \
                 --bus amqps://amq.app.neuralegion.com:5672 \
                 --name "💎 Broken Crystals"               \
-                --crawler https://brokencrystals.com       \                                  
-                -t $int_Nexploit_NEXPLOIT_TOKEN)      \
+                --crawler https://brokencrystals.com)      
             - printf "Scan was started with ID https://nexploit.app/scans/$SCAN_ID\n"
             - printf "Wait for issues ⏳\n"
             - |
               nexploit-cli scan:polling               \
                 --interval 30s                        \
                 --timeout 20m                         \
-                -t $int_Nexploit_NEXPLOIT_TOKEN  \
+                --token $int_Nexploit_NEXPLOIT_TOKEN  \
                 --breakpoint high_issue $SCAN_ID
           onComplete:
-            - nexploit-cli scan:stop -t $int_Nexploit_NEXPLOIT_TOKEN $SCAN_ID
+            - nexploit-cli scan:stop --token $int_Nexploit_NEXPLOIT_TOKEN $SCAN_ID
