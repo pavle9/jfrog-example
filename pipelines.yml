@@ -27,9 +27,9 @@ pipelines:
             - sudo npm install -g @neuralegion/nexploit-cli --unsafe-perm=true
             - |
               SCAN_ID=$(nexploit-cli scan \
-                --api https://app.neuralegion.com/ 
+                --api https://app.neuralegion.com 
                 --name "💎 Broken Crystals" 
-                --crawler https://brokencrystals.com                                         \
+                --crawler https://brokencrystals.com                                         
                 --token $int_Nexploit_NEXPLOIT_TOKEN)
             - printf "Scan was started with ID https://nexploit.app/scans/$SCAN_ID\n"
             - printf "Wait for issues ⏳\n"
