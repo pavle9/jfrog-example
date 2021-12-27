@@ -29,7 +29,8 @@ pipelines:
                 SCAN_ID=$(nexploit-cli scan:run                                                \
                   --name "💎 Broken Crystals" \
                   --crawler https://brokencrystals.com                                         \
-                  --token $int_Nexploit_NEXPLOIT_TOKEN)
+                  --token $int_Nexploit_NEXPLOIT_TOKEN
+                  --smart)
             - printf "Scan was started with ID https://nexploit.app/scans/$SCAN_ID"
             - |
               nexploit-cli scan:polling               \
