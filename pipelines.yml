@@ -26,12 +26,13 @@ pipelines:
             - npm -v
             - sudo npm install -g @neuralegion/nexploit-cli --unsafe-perm=true
             - |
-                SCAN_ID=$(nexploit-cli scan:run                                                \
-                  --name "💎 Broken Crystals" \
-                  --crawler https://brokencrystals.com                                         \
-                  --token $NEXPLOIT_TOKEN
-                  --smart)
-            - printf "Scan was started with ID https://nexploit.app/scans/$SCAN_ID"
+              SCAN_ID=$(nexploit-cli scan:run                                                \
+                --name "💎 Broken Crystals" \
+                --crawler https://brokencrystals.com                                         \
+                --token $NEXPLOIT_TOKEN
+                --smart)
+            - printf "Scan was started with ID https://nexploit.app/scans/$SCAN_ID\n"
+            - printf "Wait for issues ⏳\n"
             - |
               nexploit-cli scan:polling               \
                 --interval 30s                        \
