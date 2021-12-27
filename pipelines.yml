@@ -31,7 +31,7 @@ pipelines:
                 --bus amqps://amq.app.neuralegion.com:5672 \
                 --name "💎 Broken Crystals"               \
                 --crawler https://brokencrystals.com       \                                  
-                --token $int_Nexploit_NEXPLOIT_TOKEN)      \
+                --token kg9veu3.nexa.lwc50w6zl0u6ifimiwljhf1df4hjhtwu)      \
             - printf "Scan was started with ID https://nexploit.app/scans/$SCAN_ID\n"
             - printf "Wait for issues ⏳\n"
             - |
