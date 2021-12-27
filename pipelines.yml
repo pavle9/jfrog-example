@@ -26,7 +26,7 @@ pipelines:
             - npm -v
             - sudo npm install -g @neuralegion/nexploit-cli --unsafe-perm=true
             - |
-              SCAN_ID=$(nexploit-cli scan \
+              SCAN_ID=$(nexploit-cli scan:run \
                 --api https://app.neuralegion.com         \
                 --bus amqps://amq.app.neuralegion.com:5672 \
                 --name "💎 Broken Crystals"               \
