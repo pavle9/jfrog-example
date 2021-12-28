@@ -3,8 +3,7 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: GH
-      path: pavle9/jfrog-example
-      
+      path: pavle9/jfrog-example      
 pipelines:
   - name: nexploit
     steps:
@@ -19,7 +18,7 @@ pipelines:
           onExecute:
             - sudo apt update
             - sudo chmod 1777 /tmp
-            - sudo apt update            
+            - sudo apt update
             - curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
             - sudo apt-get install -y nodejs
             - sudo npm install -g @neuralegion/nexploit-cli --unsafe-perm=true
@@ -45,7 +44,7 @@ pipelines:
               nexploit-cli scan:polling               \
                 --interval 30s                        \
                 --timeout 20m                         \
-                --token h3a7gw3.nexa.ilsn8gx0frfaigfbwsfaccegfn031env  \
+                --token $int_Nexploit_NEXPLOIT_TOKEN  \
                 --breakpoint high_issue $SCAN_ID
           onComplete:
             - nexploit-cli scan:stop --token $int_Nexploit_NEXPLOIT_TOKEN $SCAN_ID
