@@ -26,15 +26,15 @@ pipelines:
             - sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
             - sudo chmod +x /usr/local/bin/docker-compose
             - |
-              printf "NEXPLOIT_TOKEN=h3a7gw3.nexa.ilsn8gx0frfaigfbwsfaccegfn031env\nREPEATER=kE7Crt8ZDGeEW5ZkVJUJFZ\n" > .env
+              printf "NEXPLOIT_TOKEN=$int_Nexploit_NEXPLOIT_TOKEN\nREPEATER=$int_Nexploit_REPEATER\n" > .env
               cat .env
             - |
               sudo docker-compose --env-file=.env up -d
               sudo docker-compose config
             - |
               SCAN_ID=$(nexploit-cli scan:run \
-                --token h3a7gw3.nexa.ilsn8gx0frfaigfbwsfaccegfn031env      \
-                --id kE7Crt8ZDGeEW5ZkVJUJFZ                 \
+                --token $int_Nexploit_NEXPLOIT_TOKEN      \
+                --id $int_Nexploit_REPEATER                 \
                 --api https://app.neuralegion.com         \
                 --bus amqps://amq.app.neuralegion.com:5672 \
                 --name "Scan with repeater"               \
@@ -48,4 +48,4 @@ pipelines:
                 --token h3a7gw3.nexa.ilsn8gx0frfaigfbwsfaccegfn031env  \
                 --breakpoint high_issue $SCAN_ID
           onComplete:
-            - nexploit-cli scan:stop --token h3a7gw3.nexa.ilsn8gx0frfaigfbwsfaccegfn031env $SCAN_ID
+            - nexploit-cli scan:stop --token $int_Nexploit_NEXPLOIT_TOKEN $SCAN_ID
