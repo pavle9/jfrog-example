@@ -1,12 +1,12 @@
 resources:
-  - name: jfrog_nexploit_repeater
+  - name: jfrognexploit
     type: GitRepo
     configuration:
-      gitProvider: GitHub
-      path: NeuraLegion/jfrog-example
-
+      gitProvider: GH
+      path: nerkote/jfrog-example
+      
 pipelines:
-  - name: nexploit_repeater
+  - name: nexploit
     steps:
       - name: nexploit
         type: Bash
@@ -14,40 +14,38 @@ pipelines:
           integrations:
             - name: Nexploit
           inputResources:
-            - name: jfrog_nexploit_repeater
+            - name: jfrognexploit
         execution:
           onExecute:
             - sudo apt update
             - sudo chmod 1777 /tmp
-            - sudo apt update
-            - sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-            - sudo chmod +x /usr/local/bin/docker-compose
-            - sudo apt install nodejs npm
-            - sudo apt install --fix-broken
+            - sudo apt update            
+            - curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+            - sudo apt-get install -y nodejs
             - sudo npm install -g @neuralegion/nexploit-cli --unsafe-perm=true
-            - cd $res_jfrog_nexploit_repeater_resourcePath
-            - ls
+            - sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            - sudo chmod +x /usr/local/bin/docker-compose
             - |
-              printf "NEXPLOIT_TOKEN=$int_Nexploit_NEXPLOIT_TOKEN\nREPEATER=$int_Nexploit_REPEATER\n" > .env
+              printf "NEXPLOIT_TOKEN=h3a7gw3.nexa.ilsn8gx0frfaigfbwsfaccegfn031env\nREPEATER=kE7Crt8ZDGeEW5ZkVJUJFZ\n" > .env
               cat .env
             - |
-              echo $NEXPLOIT_TOKEN
-              echo $REPEATER
-              docker-compose --env-file=.env up -d
-              docker-compose config
+              sudo docker-compose --env-file=.env up -d
+              sudo docker-compose config
             - |
-              SCAN_ID=$(nexploit-cli scan:run                                                \
-                --name "💎 Broken Crystals for a #${res_jfrognexploit_commitSha} #${run_id}" \
-                --repeater $int_Nexploit_REPEATER                                            \
-                --crawler http://brokencrystals.local                                        \
-                --smart                                                                      \
-                --token $int_Nexploit_NEXPLOIT_TOKEN)
-            - printf "Scan was started with ID https://nexploit.app/scans/$SCAN_ID"
+              SCAN_ID=$(nexploit-cli scan:run \
+                --token h3a7gw3.nexa.ilsn8gx0frfaigfbwsfaccegfn031env      \
+                --id kE7Crt8ZDGeEW5ZkVJUJFZ                 \
+                --api https://app.neuralegion.com         \
+                --bus amqps://amq.app.neuralegion.com:5672 \
+                --name "Scan with repeater"               \
+                --crawler https://brokencrystals.com)      
+            - printf "Scan was started with ID https://nexploit.app/scans/$SCAN_ID\n"
+            - printf "Wait for issues ⏳\n"
             - |
               nexploit-cli scan:polling               \
                 --interval 30s                        \
                 --timeout 20m                         \
-                --token $int_Nexploit_NEXPLOIT_TOKEN  \
-                --breakpoint medium_issue $SCAN_ID
+                --token h3a7gw3.nexa.ilsn8gx0frfaigfbwsfaccegfn031env  \
+                --breakpoint high_issue $SCAN_ID
           onComplete:
-            - nexploit-cli scan:stop --token $int_Nexploit_NEXPLOIT_TOKEN $SCAN_ID
+            - nexploit-cli scan:stop --token h3a7gw3.nexa.ilsn8gx0frfaigfbwsfaccegfn031env $SCAN_ID
