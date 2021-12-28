@@ -14,7 +14,7 @@ pipelines:
           integrations:
             - name: Nexploit
           inputResources:
-            - name: jfrognexploit
+            - name: jfrognexploit1
         execution:
           onExecute:
             - sudo apt update
