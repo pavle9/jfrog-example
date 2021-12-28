@@ -1,5 +1,5 @@
 resources:
-  - name: jfrognexploit
+  - name: jfrognexploit1
     type: GitRepo
     configuration:
       gitProvider: GH
