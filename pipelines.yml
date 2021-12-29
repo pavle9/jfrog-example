@@ -29,7 +29,6 @@ pipelines:
               printf "NEXPLOIT_TOKEN=$int_Nexploit_NEXPLOIT_TOKEN\nREPEATER=$int_Nexploit_REPEATER\n" > .env
               cat .env
             - |
-              cd /usr/local/bin/
               docker-compose -f docker-compose.yml up -d
             - |
               SCAN_ID=$(nexploit-cli scan:run \
