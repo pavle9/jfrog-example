@@ -25,12 +25,9 @@ pipelines:
             - sudo npm install -g @neuralegion/nexploit-cli --unsafe-perm=true
             - sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
             - sudo chmod +x /usr/local/bin/docker-compose
-            - |
               printf "NEXPLOIT_TOKEN=$int_Nexploit_NEXPLOIT_TOKEN\nREPEATER=$int_Nexploit_REPEATER\n" > .env
               cat .env
-              |
               docker-compose -f docker-compose.yml up -d
-            - |
               SCAN_ID=$(nexploit-cli scan:run \
                 --token $int_Nexploit_NEXPLOIT_TOKEN      \
                 --id $int_Nexploit_REPEATER                 \
